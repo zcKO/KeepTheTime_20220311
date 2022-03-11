@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.jc.keepthetime_20220311.databinding.ActivitySignInBinding
+import com.jc.keepthetime_20220311.datas.BasicResponse
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,8 +29,8 @@ class SignInActivity : BaseActivity() {
             val inputEmail = binding.edtEamil.text.toString()
             val inputPassword = binding.edtPassword.text.toString()
 
-            apiList.postRequestLogin(inputEmail, inputPassword).enqueue(object: Callback<JSONObject> {
-                override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
+            apiList.postRequestLogin(inputEmail, inputPassword).enqueue(object: Callback<BasicResponse> {
+                override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
                     Log.d("서버응답", response.toString())
 
                     // retrofit 라이브러리의 response 는, "성공 / 실패" 여부에 따라 다른 본문을 봐야한다.
@@ -46,7 +47,7 @@ class SignInActivity : BaseActivity() {
 
                 }
 
-                override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
                     call.cancel()
                 }
 
