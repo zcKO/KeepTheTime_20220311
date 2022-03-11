@@ -6,9 +6,9 @@ class UserData(
     val provider: String,
     val uid: String?,       // 서버가 null 을 주는 경우도 있다. String 이 대부분 내려온다.
     val email: String,
-    val readyMinute: Int,
-    val nickName: String,
-    val profileImage: String
+    val ready_minute: Int,
+    val nick_name: String,
+    val profile_img: String
 ) {
 
 }
