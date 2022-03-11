@@ -52,7 +52,7 @@ class SignInActivity : BaseActivity() {
 
                         // Retrofit 의 Callback 은 UIThread 안으로 다시 돌아오도록 처리되어 있다.
                         // UI 조작을 위해 runOnUiThread { } 작성이 필요 없다.
-                        Toast.makeText(mContext, "${br.data.user.nickName}님, 환영합니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext, "${br.data.user.nick_name}님, 환영합니다.", Toast.LENGTH_SHORT).show()
 
                     } else {
                         // 실패인지

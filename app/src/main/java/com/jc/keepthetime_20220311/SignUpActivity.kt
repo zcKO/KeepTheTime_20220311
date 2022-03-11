@@ -3,6 +3,10 @@ package com.jc.keepthetime_20220311
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.jc.keepthetime_20220311.databinding.ActivitySignUpBinding
+import com.jc.keepthetime_20220311.datas.BasicResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : BaseActivity() {
 
@@ -25,6 +29,21 @@ class SignUpActivity : BaseActivity() {
             val inputNickname = binding.edtNickname.text.toString()
 
             // 회원가입 API 호출 (PUT - "/user")
+            apiList.putRequestSignUp(inputEmail, inputPw, inputNickname)
+                .enqueue(object : Callback<BasicResponse> {
+                    override fun onResponse(
+                        call: Call<BasicResponse>,
+                        response: Response<BasicResponse>
+                    ) {
+                        
+                    }
+
+                    override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                        call.cancel()
+                    }
+
+                })
+
 
         }
 
