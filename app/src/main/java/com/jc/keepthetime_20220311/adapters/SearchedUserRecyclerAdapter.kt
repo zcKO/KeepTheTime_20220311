@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jc.keepthetime_20220311.R
 import com.jc.keepthetime_20220311.datas.UserData
 
@@ -17,7 +18,7 @@ class SearchedUserRecyclerAdapter(
     val mList: List<UserData>
 ) : RecyclerView.Adapter<SearchedUserRecyclerAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val imgProfile = view.findViewById<ImageView>(R.id.imgProfile)
         val txtNickname = view.findViewById<TextView>(R.id.txtNickname)
@@ -28,7 +29,34 @@ class SearchedUserRecyclerAdapter(
         // 실제 데이터 반영 기능이 있는 함수
         fun bind(data: UserData) {
             txtNickname.text = data.nick_name
-            txtEmail.text = data.email
+
+            Glide.with(mContext)
+                .load(data.profile_img)
+                .into(imgProfile)
+
+            when (data.provider) {
+                "default" -> {
+                    imgSocialLoginLogo.visibility = View.GONE
+                    txtEmail.text = data.email
+                }
+                "kakao" -> {
+                    imgSocialLoginLogo.visibility = View.VISIBLE
+                    imgSocialLoginLogo.setImageResource(R.drawable.kakao)
+                    txtEmail.text = "카카오 로그인"
+                }
+                "facebook" -> {
+                    imgSocialLoginLogo.visibility = View.VISIBLE
+                    imgSocialLoginLogo.setImageResource(R.drawable.facebook)
+                    txtEmail.text = "페이스북 로그인"
+                }
+                "naver" -> {
+                    imgSocialLoginLogo.visibility = View.VISIBLE
+                    imgSocialLoginLogo.setImageResource(R.drawable.naver)
+                    txtEmail.text = "네이버 로그인"
+                }
+            }
+
+
         }
 
     }
@@ -37,7 +65,8 @@ class SearchedUserRecyclerAdapter(
 
         // xml 을 inflate 해와서 => 이를 가지고, MyViewHolder 객체로 성생. 리턴
         // 재사용성을 알아서 보존해준다.
-        val row = LayoutInflater.from(mContext).inflate(R.layout.searched_user_list_item, parent, false)
+        val row =
+            LayoutInflater.from(mContext).inflate(R.layout.searched_user_list_item, parent, false)
         return MyViewHolder(row)
 
     }
