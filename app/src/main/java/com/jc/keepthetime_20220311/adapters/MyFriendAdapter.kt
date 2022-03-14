@@ -31,14 +31,39 @@ class MyFriendAdapter(
         val imgProfile = row.findViewById<ImageView>(R.id.imgProfile)
         val txtNickname = row.findViewById<TextView>(R.id.txtNickname)
         val txtEmail = row.findViewById<TextView>(R.id.txtEmail)
+        val imgSocialLoginLogo = row.findViewById<ImageView>(R.id.imgSocialLoginLogo)
 
         Glide.with(mContext)
             .load(data.profile_image)
             .into(imgProfile)
 
         txtNickname.text = data.nickname
-        txtEmail.text = data.email
 
+        when (data.provider) {
+            "default" -> {
+                // 이메일 표시
+                txtEmail.text = data.email
+                // 로고 이미지 숨김
+            }
+            "kakao" -> {
+                // "카카오 로그인"
+                txtEmail.text = "카카오 로그인"
+                // 로고 이미지 : 카카오 아이콘
+            }
+            "fackbook" -> {
+                txtEmail.text = "페북 로그인"
+            }
+            "naver" -> {
+                txtEmail.text = "네이버 로그인"
+            }
+            else -> {
+                // 그 외의 잘못된 경우
+            }
+        }
+
+
+        // 사용자의 provider  "default" : 이메일 표시, "kakao" : 카카오 로그인, "facebook" : 페북 로그인, "naver" : 네이버 로그인
+        // txtEamil 자리에 반영
 
         return row
     }
