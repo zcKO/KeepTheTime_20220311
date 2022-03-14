@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.service.autofill.UserData
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.jc.keepthetime_20220311.adapters.MyFriendAdapter
 import com.jc.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.jc.keepthetime_20220311.datas.BasicResponse
 import com.jc.keepthetime_20220311.utils.ContextUtil
@@ -16,6 +17,7 @@ class ManageMyFriendsActivity : BaseActivity() {
     lateinit var binding: ActivityManageMyFriendsBinding
 
     val mFriendList = ArrayList<UserData>()
+    lateinit var mAdapter: MyFriendAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,8 @@ class ManageMyFriendsActivity : BaseActivity() {
 
         getMyFriendListFromServer()
 
+        mAdapter = MyFriendAdapter( mContext, R.layout.my_friend_list_item, mFriendList )
+        binding.myFriendsListView.adapter = mAdapter
 
     }
 
@@ -54,6 +58,7 @@ class ManageMyFriendsActivity : BaseActivity() {
                     mFriendList.addAll( br.data.friends )
 
                     // 어댑터 새로 고침
+                    mAdapter.notifyDataSetChanged()
 
                 }
 
