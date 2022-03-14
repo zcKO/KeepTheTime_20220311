@@ -1,7 +1,6 @@
 package com.jc.keepthetime_20220311.api
 
 import com.jc.keepthetime_20220311.datas.BasicResponse
-import com.jc.keepthetime_20220311.datas.UserData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -36,4 +35,11 @@ interface APIList {
         @Query("type") type: String,
         @Query("value") value: String
     ): Call<BasicResponse>
+
+    @GET("/user/friend")
+    fun getRequestFriendList(
+        @Header("X-Http-Token") token: String,
+        @Query("type") type: String             // all, my, requested 세 문구 외에는 넣지 말자
+    ): Call<BasicResponse>
+
 }
