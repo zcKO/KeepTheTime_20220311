@@ -25,6 +25,12 @@ class SearchedUserRecyclerAdapter(
         val txtEmail = view.findViewById<TextView>(R.id.txtEmail)
         val btnAddFriend = view.findViewById<Button>(R.id.btnAddFriend)
 
+        // 실제 데이터 반영 기능이 있는 함수
+        fun bind(data: UserData) {
+            txtNickname.text = data.nick_name
+            txtEmail.text = data.email
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -38,8 +44,11 @@ class SearchedUserRecyclerAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // 실제 데이터 반영 함수
+        val data = mList[position]
 
-
+        // 이 함수에서 직접 코딩하면 => holder.UI 변수로 매번 holder 단어를 사용해야한다.
+        // holder 변수의 멤버 변수들을 사용할 수 있는 것처럼, 함수도 사용할 수 있다.
+        holder.bind(data)
     }
 
     // 몇 개의 아이템을 보여줄 것인지 => 데이터 목록의 갯 수 만큼 보여준다.
