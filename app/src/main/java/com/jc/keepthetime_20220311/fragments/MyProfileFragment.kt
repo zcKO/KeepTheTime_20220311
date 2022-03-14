@@ -1,12 +1,16 @@
 package com.jc.keepthetime_20220311.fragments
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.jc.keepthetime_20220311.R
+import com.jc.keepthetime_20220311.SplashActivity
 import com.jc.keepthetime_20220311.databinding.FragmentMyProfileBinding
 import com.jc.keepthetime_20220311.datas.BasicResponse
 import com.jc.keepthetime_20220311.utils.ContextUtil
@@ -36,6 +40,31 @@ class MyProfileFragment : BaseFragment() {
     }
 
     override fun setupEvents() {
+
+        binding.btnLogout.setOnClickListener {
+
+            val alert = AlertDialog.Builder(mContext)
+                .setTitle("로그아웃 경고창")
+                .setMessage("로그아웃 하시겠습니까?")
+                .setPositiveButton("확인", DialogInterface.OnClickListener { _, _ ->
+                    // 실제 로그아웃 처리 -> 저장 된 토큰을 초기화한다.
+                    ContextUtil.setLoginUserToken(mContext, "")
+
+                    // 로딩화면으로 복귀
+                    val myIntent = Intent(mContext, SplashActivity::class.java)
+                    // flag 로 부가적인 옵션 추가가 가능하다.
+                    myIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(myIntent)
+
+                    // 기존 메인화면 종료. 프래그먼트에는 finish() 기능이 없다.
+                    // 구글링 : https://stackoverflow.com/questions/3473168/clear-the-entire-history-stack-and-start-a-new-activity-on-android
+
+
+                })
+                .setNegativeButton("취소", null)
+                .show()
+
+        }
 
     }
 
