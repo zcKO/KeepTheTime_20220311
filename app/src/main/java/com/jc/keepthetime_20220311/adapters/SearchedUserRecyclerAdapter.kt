@@ -27,6 +27,7 @@ class SearchedUserRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        // 실제 데이터 반영 함수
 
     }
 
