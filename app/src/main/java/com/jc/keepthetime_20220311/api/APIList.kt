@@ -29,6 +29,11 @@ interface APIList {
     @GET("/user")
     fun getRequestMyInfo(
         @Header("X-Http-Token") token: String,
-    ): Call <BasicResponse>
+    ): Call<BasicResponse>
 
+    @GET("/user/check")
+    fun getRequestDuplicatedCheck(
+        @Query("type") type: String,
+        @Query("value") value: String
+    ): Call<BasicResponse>
 }
