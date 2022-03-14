@@ -1,7 +1,7 @@
 package com.jc.keepthetime_20220311.adapters
 
 import android.content.Context
-import android.service.autofill.UserData
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jc.keepthetime_20220311.R
+import com.jc.keepthetime_20220311.datas.UserData
 
 class MyFriendAdapter(
     val mContext: Context,
@@ -34,16 +35,17 @@ class MyFriendAdapter(
         val imgSocialLoginLogo = row.findViewById<ImageView>(R.id.imgSocialLoginLogo)
 
         Glide.with(mContext)
-            .load(data.profile_image)
+            .load(data.profile_img)
             .into(imgProfile)
 
-        txtNickname.text = data.nickname
+        txtNickname.text = data.nick_name
 
         when (data.provider) {
             "default" -> {
                 // 이메일 표시
                 txtEmail.text = data.email
                 // 로고 이미지 숨김
+                data.profile_img
             }
             "kakao" -> {
                 // "카카오 로그인"
