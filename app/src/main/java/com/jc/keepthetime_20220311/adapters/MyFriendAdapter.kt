@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.jc.keepthetime_20220311.R
 
 class MyFriendAdapter(
@@ -23,6 +26,18 @@ class MyFriendAdapter(
         }
 
         val row = tempRow!!
+
+        val data = mList[position]
+        val imgProfile = row.findViewById<ImageView>(R.id.imgProfile)
+        val txtNickname = row.findViewById<TextView>(R.id.txtNickname)
+        val txtEmail = row.findViewById<TextView>(R.id.txtEmail)
+
+        Glide.with(mContext)
+            .load(data.profile_image)
+            .into(imgProfile)
+
+        txtNickname.text = data.nickname
+        txtEmail.text = data.email
 
 
         return row
