@@ -16,10 +16,6 @@ class MainActivity : BaseActivity() {
 
     lateinit var mAdapter: MainViewPagerAdapter
 
-//    val adapter: MainViewPagerAdapter by lazy {
-//        MainViewPagerAdapter(supportFragmentManager)
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -35,5 +31,8 @@ class MainActivity : BaseActivity() {
     override fun setValues() {
         mAdapter = MainViewPagerAdapter(supportFragmentManager)
         binding.mainViewPager.adapter = mAdapter
+
+        binding.mainTabLayout.setupWithViewPager(binding.mainViewPager)
+
     }
 }
