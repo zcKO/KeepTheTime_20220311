@@ -7,6 +7,7 @@ package com.jc.keepthetime_20220311.datas
 // 모든 경우에 대해 전부 변수 생성 => 활용시에만 주의하면 된다.
 class DataResponse(
     val user: UserData,
-    val token: String
+    val token: String,
+    val friends: List<UserData>                // 친구 목록을 불러올 때 사용할 변수
 ) {
 }
