@@ -1,10 +1,12 @@
 package com.jc.keepthetime_20220311.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.jc.keepthetime_20220311.EditAppointmentActivity
 import com.jc.keepthetime_20220311.R
 import com.jc.keepthetime_20220311.databinding.FragmentAppointmentListBinding
 
@@ -31,11 +33,15 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setupEvents() {
 
+        binding.btnAddAppointment.setOnClickListener {
+            val myIntent = Intent(mContext, EditAppointmentActivity::class.java)
+            startActivity(myIntent)
+        }
+
     }
 
     override fun setValues() {
 
-        binding.txtTest.text = "데이터 바인딩을 이용한 변경"
 
     }
 
