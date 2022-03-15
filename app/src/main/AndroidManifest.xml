@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KeepTheTime_20220311">
+
         <activity
             android:name=".EditAppointmentActivity"
             android:exported="false" />
@@ -39,6 +40,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="91u49fiffu" />
+
+
     </application>
 
 </manifest>

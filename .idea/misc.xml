@@ -4,7 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/light_gray_border_box.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_edit_appointment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_edit_appointment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13829787234042554" />
         <entry key="app/src/main/res/layout/activity_manage_my_friends.xml" value="0.15384615384615385" />
         <entry key="app/src/main/res/layout/activity_search_user.xml" value="0.37604166666666666" />

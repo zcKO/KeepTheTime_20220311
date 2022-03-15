@@ -60,6 +60,24 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="약속 장소" />
+
+        <EditText
+            android:id="@+id/edtPlaceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="장소를 입력하세요." />
+
+
+        <fragment android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/map"
+            class="com.naver.maps.map.MapFragment" />
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"

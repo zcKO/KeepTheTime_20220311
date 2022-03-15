@@ -8,8 +8,8 @@ android {
 
     defaultConfig {
         applicationId "com.jc.keepthetime_20220311"
-        minSdk 23
-        targetSdk 31
+        minSdk 21
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -55,5 +55,8 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    // naver map
+    implementation 'com.naver.maps:map-sdk:3.14.0'
 
 }
