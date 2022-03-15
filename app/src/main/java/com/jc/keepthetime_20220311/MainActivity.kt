@@ -19,6 +19,27 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        // 바텀 네비게이션의 메뉴 선택 > 뷰페이저의 페이지 이동
+        binding.mainBottomNav.setOnItemSelectedListener {
+
+            // 어떤 메뉴가 선택되었는지 it 변수가 알려준다.
+            when (it.itemId) {
+
+                R.id.myAppointment -> {
+                    // 0 번 페이지로 이동
+                    binding.mainViewPager2.currentItem = 0
+                }
+                R.id.myProfile -> {
+                    binding.mainViewPager2.currentItem = 1
+                }
+
+            }
+
+            return@setOnItemSelectedListener true
+        }
+
+        // 뷰페이저의 페이지 이동 > 바텀 네비게이션의 메뉴 선택
+
     }
 
     override fun setValues() {
