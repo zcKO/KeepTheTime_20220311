@@ -9,8 +9,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/myFriendsListView"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/friendsTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/friendViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -19,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:text="친구 추가하기" />
 
     </FrameLayout>
