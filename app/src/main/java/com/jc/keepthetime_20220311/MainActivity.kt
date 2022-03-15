@@ -2,6 +2,7 @@ package com.jc.keepthetime_20220311
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.viewpager2.widget.ViewPager2
 import com.jc.keepthetime_20220311.adapters.MainViewPager2Adapter
 import com.jc.keepthetime_20220311.databinding.ActivityMainBinding
 
@@ -39,6 +40,16 @@ class MainActivity : BaseActivity() {
         }
 
         // 뷰페이저의 페이지 이동 > 바텀 네비게이션의 메뉴 선택
+        binding.mainViewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                binding.mainBottomNav.selectedItemId = when(position) {
+                    0 -> R.id.myAppointment
+                    else -> R.id.myProfile
+                }
+            }
+        })
 
     }
 
