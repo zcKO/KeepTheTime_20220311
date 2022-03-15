@@ -73,10 +73,11 @@
             android:hint="장소를 입력하세요." />
 
 
-        <fragment android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/map"
-            class="com.naver.maps.map.MapFragment" />
+        <com.naver.maps.map.MapView
+            android:id="@+id/naverMapView"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
 
         <Button
             android:id="@+id/btnSave"
