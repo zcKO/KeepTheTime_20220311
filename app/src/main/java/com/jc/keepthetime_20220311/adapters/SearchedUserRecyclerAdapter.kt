@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jc.keepthetime_20220311.R
+import com.jc.keepthetime_20220311.api.APIList
+import com.jc.keepthetime_20220311.api.ServerApi
 import com.jc.keepthetime_20220311.datas.UserData
+import retrofit2.Retrofit
+import retrofit2.create
 
 class SearchedUserRecyclerAdapter(
     val mContext: Context,
@@ -55,6 +58,13 @@ class SearchedUserRecyclerAdapter(
                     txtEmail.text = "네이버 로그인"
                 }
             }
+
+            // 친구 추가 버튼이 눌리면 할 일 => 친구 추가 요청 API 호출
+            // 어댑터에서 => API 호출 => 레트로핏 객체 직접 생성해서 호출
+            val retrofit = ServerApi.getRetrofit()
+            val apiList = retrofit.create(APIList::class.java)
+
+
 
 
         }

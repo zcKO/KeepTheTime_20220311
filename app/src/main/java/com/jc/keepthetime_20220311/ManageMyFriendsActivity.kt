@@ -3,6 +3,7 @@ package com.jc.keepthetime_20220311
 import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jc.keepthetime_20220311.adapters.MyFriendAdapter
 import com.jc.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.jc.keepthetime_20220311.datas.BasicResponse
@@ -44,8 +45,9 @@ class ManageMyFriendsActivity : BaseActivity() {
 
         getMyFriendListFromServer()
 
-        mAdapter = MyFriendAdapter( mContext, R.layout.my_friend_list_item, mFriendList )
+        mAdapter = MyFriendAdapter( mContext, mFriendList )
         binding.myFriendsListView.adapter = mAdapter
+        binding.myFriendsListView.layoutManager = LinearLayoutManager(mContext)
 
     }
 

@@ -1,5 +1,9 @@
 package com.jc.keepthetime_20220311.api
 
+import android.content.Context
+import com.jc.keepthetime_20220311.utils.ContextUtil
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -15,15 +19,40 @@ class ServerApi {
         private var retrofit: Retrofit? = null
         private const val BASE_URL = "https://keepthetime.xyz"
 
-        fun getRetrofit(): Retrofit {
+        fun getRetrofit(context: Context): Retrofit {
 
             // Retrofit 라이브러리는, 클래스 차원에서 BASE_URL 을 설정할 수 있게 도와준다.
             // Retrofit + Gson 두 개의 라이브러리르 결합하면 => JSON 파싱이 쉬워진다.
-
             if (retrofit == null) {
+
+                // retrofit 객체 생성시에, 추가 세팅
+                // 자동으로 토큰을 첨부하도록
+                // retrofit 변수를 통해서 API 통신을 시작하기 직전에, 통신 정보를 먼저 가로챈다.
+                // 가로챈 통신 정보에서, 무조건 헤더에 토큰을 첨부해두고, 나머지 작업을 이어가도록.
+
+                val interceptor = Interceptor {
+                    with(it) {
+                        // 기존의 request 에, 헤더를 추가해주자.
+                        val newRequest = request()
+                            .newBuilder()
+                            .addHeader("X-Http-Token", ContextUtil.getLoginUserToken(context))
+                            .build()
+
+                        // 다시 하려던 일을 이어가도록한다.
+                        proceed(newRequest)
+                    }
+                }
+
+                // 만들어낸 인터셉터를 활용하도록 세팅.
+                // 레트로핏이 사용하는 클라이언트 객체를 수정한다.
+                val myClient = OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .build()
+
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL)      // 어느 서버를 기반으로 움직일 것인지 설정.
                     .addConverterFactory(GsonConverterFactory.create())     // gson 라이브러리와 결합
+                    .client(myClient)       // 인터셉터를 부착해둔 클라이언트로 통신하도록 설정.
                     .build()
             }
 
