@@ -9,9 +9,13 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.jc.keepthetime_20220311.databinding.ActivityEditAppointmentBinding
+import com.jc.keepthetime_20220311.datas.BasicResponse
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,6 +51,31 @@ class EditAppointmentActivity : BaseActivity() {
 
             Log.d("선택한 약속 장소 - 위도", "위도 : ${mSelectedLatLng!!.latitude}")
             Log.d("선택한 약속 장소 - 경도", "경도 : ${mSelectedLatLng!!.longitude}")
+
+            // 약속 일시 - yyyy-MM-dd HH:mm 의 양식을 서버가 지정해서 요청
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
+
+
+            apiList.postRequestAddAppointment(
+                binding.edtTitle.text.toString(),
+                sdf.format(mSelectedAppointmentDateTime.time),
+                binding.edtPlaceName.text.toString(),
+                mSelectedLatLng!!.latitude,
+                mSelectedLatLng!!.longitude
+            ).enqueue(object: Callback<BasicResponse> {
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                    call.cancel()
+                }
+
+
+            })
 
         }
 
