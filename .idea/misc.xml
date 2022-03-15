@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/layout/my_friend_list_item.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/my_friend_list_item2.xml" value="0.25925925925925924" />
         <entry key="app/src/main/res/layout/searched_user_list_item.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/menu/menu_for_main_bottom_nav.xml" value="0.1" />
       </map>
     </option>
   </component>
