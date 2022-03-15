@@ -20,7 +20,7 @@ abstract class BaseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mContext = requireContext()         // 모든 화면 정보 > mContext 를 대신 사용
 
-        val retrofit = ServerApi.getRetrofit()
+        val retrofit = ServerApi.getRetrofit(mContext)
         apiList = retrofit.create(APIList::class.java)
     }
 
