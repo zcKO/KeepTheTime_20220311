@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jc.keepthetime_20220311.R
 import com.jc.keepthetime_20220311.datas.AppointmentData
+import java.text.SimpleDateFormat
 
 class AppointmentRecyclerAdapter(
     val mContext: Context,
@@ -28,12 +29,11 @@ class AppointmentRecyclerAdapter(
             txtPlaceName.text = data.place
 
             // 서버가 주는 datetime (String - 2022-03-15 10:57:23 양식)
+            // 이제 서버가 주는 datetime (Date 형태로 내려온다)
 
-            // 중간에 calendar / Date 형태로 변환 (parse) => 파싱 할 때 부터 Calendar / Date 라고 한다면
-
-
-            // 출력하고 싶은 datetime (String - 22년 3월 5일 오후 10:57 양식)
-
+            // 출력하고 싶은 datetime (String - 22년 3월 5일 오후 10:57 양식) - format 활용
+            val sdf = SimpleDateFormat("yy년 M월 d일 a h시 m분")
+            txtDateTime.text = sdf.format(data.datetime)
 
         }
 
