@@ -325,6 +325,10 @@ class EditAppointmentActivity : BaseActivity() {
                             }
 
 
+                            // [연습 문제] 카메라를 latLng (클릭한 위치)가 가운데로 오도록 세팅
+                            // 공식 문서 활용 연습문제
+                            val update = CameraUpdate.scrollTo(latLng)
+                            naverMap.moveCamera(update)
                         }
 
                         override fun onError(p0: Int, p1: String?, p2: API?) {
