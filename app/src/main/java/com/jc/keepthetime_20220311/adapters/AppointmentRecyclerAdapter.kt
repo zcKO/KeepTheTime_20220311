@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jc.keepthetime_20220311.R
 import com.jc.keepthetime_20220311.datas.AppointmentData
@@ -15,8 +17,15 @@ class AppointmentRecyclerAdapter(
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
+        val txtDateTime = view.findViewById<TextView>(R.id.txtDateTime)
+        val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceName)
+        val imgViewMap = view.findViewById<ImageView>(R.id.imgViewMap)
+
         fun bind(data: AppointmentData) {
 
+            txtTitle.text = data.title
+            txtPlaceName.text = data.place
 
         }
 
