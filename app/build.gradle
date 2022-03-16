@@ -59,4 +59,6 @@ dependencies {
     // naver map
     implementation 'com.naver.maps:map-sdk:3.14.0'
 
+    // ODsayAndroidSDK 수동으로 추가
+    implementation files('libs/ODsayAndroidSDK.aar')
 }
