@@ -11,7 +11,8 @@
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.4564336372847011" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.23739837398373984" />
-        <entry key="app/src/main/res/layout/fragment_appointment_list.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/appointment_list_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_appointment_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_my_friends.xml" value="0.15462962962962962" />
         <entry key="app/src/main/res/layout/fragment_my_profile.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_requested_users.xml" value="0.29074074074074074" />
