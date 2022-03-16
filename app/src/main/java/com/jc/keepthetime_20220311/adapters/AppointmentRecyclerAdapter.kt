@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jc.keepthetime_20220311.R
 import com.jc.keepthetime_20220311.ViewMapActivity
 import com.jc.keepthetime_20220311.datas.AppointmentData
+import java.io.Serializable
 import java.text.SimpleDateFormat
 
 class AppointmentRecyclerAdapter(
@@ -39,6 +40,7 @@ class AppointmentRecyclerAdapter(
 
             imgViewMap.setOnClickListener {
                 val myIntent = Intent(mContext, ViewMapActivity::class.java)
+                myIntent.putExtra("appointment", data)
                 mContext.startActivity(myIntent)
             }
 

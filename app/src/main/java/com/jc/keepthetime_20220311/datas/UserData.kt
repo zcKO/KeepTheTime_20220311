@@ -1,5 +1,7 @@
 package com.jc.keepthetime_20220311.datas
 
+import java.io.Serializable
+
 // 서바가 알려주는 사용자 정보를 담기 위한 (파싱하기 위한) 클래스
 class UserData(
     val id: Int,
@@ -9,6 +11,6 @@ class UserData(
     val ready_minute: Int,
     val nick_name: String,
     val profile_img: String
-) {
+): Serializable {
 
 }
