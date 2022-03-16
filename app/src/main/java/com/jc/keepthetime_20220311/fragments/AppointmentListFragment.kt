@@ -2,6 +2,7 @@ package com.jc.keepthetime_20220311.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,8 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setValues() {
 
-        getMyAppointmentListFromServer()
+
+//        getMyAppointmentListFromServer()
         mAppointmentAdapter = AppointmentRecyclerAdapter(mContext, mAppointmentList)
         binding.appointmentRecyclerView.adapter = mAppointmentAdapter
         binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
@@ -65,7 +67,8 @@ class AppointmentListFragment : BaseFragment() {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                 if (response.isSuccessful) {
-
+                    // 기존의 약속목록을 비우고 나서 추가
+                    mAppointmentList.clear()
                     val br = response.body()!!
                     mAppointmentList.addAll(br.data.appointments)
                     mAppointmentAdapter.notifyDataSetChanged()
@@ -79,6 +82,12 @@ class AppointmentListFragment : BaseFragment() {
 
         })
 
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        getMyAppointmentListFromServer()
     }
 
 }
