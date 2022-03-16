@@ -6,13 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jc.keepthetime_20220311.EditAppointmentActivity
 import com.jc.keepthetime_20220311.R
+import com.jc.keepthetime_20220311.adapters.AppointmentRecyclerAdapter
 import com.jc.keepthetime_20220311.databinding.FragmentAppointmentListBinding
+import com.jc.keepthetime_20220311.datas.AppointmentData
 
 class AppointmentListFragment : BaseFragment() {
 
     lateinit var binding: FragmentAppointmentListBinding
+
+    lateinit var mAdapter: AppointmentRecyclerAdapter
+    val mList = ArrayList<AppointmentData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +48,10 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setValues() {
 
+
+        mAdapter = AppointmentRecyclerAdapter(mContext, mList)
+        binding.appointmentRecyclerView.adapter = mAdapter
+        binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
     }
 
