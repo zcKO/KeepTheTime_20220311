@@ -74,7 +74,7 @@ interface APIList {
     fun getRequestAppointmentList(): Call<BasicResponse>
 
     @GET("/user/place")
-    fun getRequestMyPlaceList(): Call<BasicResponse>
+    fun getRequestMyPlaceList() : Call<BasicResponse>
 
     @FormUrlEncoded
     @POST("/user/place")
