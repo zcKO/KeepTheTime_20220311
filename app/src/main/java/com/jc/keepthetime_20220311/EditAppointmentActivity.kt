@@ -41,7 +41,7 @@ class EditAppointmentActivity : BaseActivity() {
     // 약속 장소 관련 멤버변수
     var marker: Marker? = null                   // 지도에 표시도리 하나의 마커, 처음에는 찍지 않은 상태
     var path: PathOverlay? = null                // 출발지 ~ 도착지 까지 보여줄 경로선. 처음에는 보이지 않는 상태
-    var mSelectedLatLng : LatLng? = null         // 약속 장소 위/경도도 처음에는 설정하지 않은 상태
+    var mSelectedLatLng: LatLng? = null         // 약속 장소 위/경도도 처음에는 설정하지 않은 상태
 
     // 내 출발 장소 목록
     val mStartPlaceList = ArrayList<PlaceData>()
@@ -64,23 +64,31 @@ class EditAppointmentActivity : BaseActivity() {
     override fun setupEvents() {
 
         // 도전 과제 : 스피너의 이벤트 처리
-        binding.startPlaceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+        binding.startPlaceSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    p0: AdapterView<*>?,
+                    p1: View?,
+                    position: Int,
+                    p3: Long
+                ) {
 
-                // 몇 번째 아이템이 선택 되었는지, p2 or position 이 알려줌
-                mSelectedStartPlace = mStartPlaceList[position]
+                    // 몇 번째 아이템이 선택 되었는지, p2 or position 이 알려줌
+                    mSelectedStartPlace = mStartPlaceList[position]
 
-                // 선택한 출발지 ~ 지도에서 클릭한 도착까지의 이동 경로 / 교통 정보 표현.
+                    // 네이버 지도보다 로딩이 느릴 수 있다.
+                    // 출발 장소도 로딩이 끝나면, 다시 지도 세팅 진행.
+                    setNaverMap()
 
+                    // 선택한 출발지 ~ 지도에서 클릭한 도착까지의 이동 경로 / 교통 정보 표현.
+                    findWay()
 
+                }
 
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
             }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
-
 
 
         // 스크롤보조용 텍스트뷰를 손이 닿으면 => 스크롤뷰의 이벤트 일시 정지 (지도만 움직이게)
@@ -147,7 +155,7 @@ class EditAppointmentActivity : BaseActivity() {
             // binding.startPlaceSpinner.selectedItemPosition // 지금 선택되어 있는 아이템의 몇 번째 아이템인지
             val selectStartPlace = mStartPlaceList[binding.startPlaceSpinner.selectedItemPosition]
 
-           // 약속 일시 - yyyy-MM-dd HH:mm 의 양식을 서버가 지정해서 요청
+            // 약속 일시 - yyyy-MM-dd HH:mm 의 양식을 서버가 지정해서 요청
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
             apiList.postRequestAddAppointment(
@@ -159,7 +167,7 @@ class EditAppointmentActivity : BaseActivity() {
                 inputPlaceName,
                 mSelectedLatLng!!.latitude,
                 mSelectedLatLng!!.longitude
-            ).enqueue(object: Callback<BasicResponse> {
+            ).enqueue(object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
@@ -251,7 +259,11 @@ class EditAppointmentActivity : BaseActivity() {
         getMyStartPlaceListFromServer()
 
         // 스피너 어댑터 연결 -> 리스트뷰와 동일
-        mStartPlaceAdapter = StartPlaceSpinnerAdapter(mContext, R.layout.start_place_spinner_list_item, mStartPlaceList)
+        mStartPlaceAdapter = StartPlaceSpinnerAdapter(
+            mContext,
+            R.layout.start_place_spinner_list_item,
+            mStartPlaceList
+        )
         binding.startPlaceSpinner.adapter = mStartPlaceAdapter
 
     }
@@ -263,6 +275,10 @@ class EditAppointmentActivity : BaseActivity() {
         // 출발 지점이 선택 되어야 세팅 진행
         if (mSelectedStartPlace == null) {
             return      // 우선 함수 강제 종료.
+        }
+
+        if (naverMap == null) {
+            return // 이상황도 함수 강제 종료
         }
 
         // 지도 시작지점 : 내 선택된 출발 지점
@@ -302,10 +318,10 @@ class EditAppointmentActivity : BaseActivity() {
             // coord ~ 선택한 latlng 까지 대중교통 경로를 그려보자 (PathOverlay 기능 활용) + ODSay 라이브러리 활용
 
 
-
             if (path == null) {
                 path = PathOverlay()
             }
+
 
             // ArrayList 를 만들어서, 출발지와 도착지를 추가
             val coordList = ArrayList<LatLng>()
@@ -327,9 +343,16 @@ class EditAppointmentActivity : BaseActivity() {
 
     // 길찾기 관련 코드를 별도 함수로 => 여러 곳에서 활용 가능
     fun findWay() {
+
+        // 출발지 / 도착지 모두 불러와져야 길찾기 진행
+        if (mSelectedStartPlace == null || mSelectedLatLng == null) {
+            return // 좌표가 하나라도 없으면 함수를 강제 종료
+        }
+
         //   val myODsayService: ODsayService(mContext, "+49PY7ooyTk1KYzli+tMi2j8iWiI6WcC4EdkansUJz8")
 
-        val myODsayService = ODsayService.init(mContext, "+49PY7ooyTk1KYzli+tMi2j8iWiI6WcC4EdkansUJz8")
+        val myODsayService =
+            ODsayService.init(mContext, "+49PY7ooyTk1KYzli+tMi2j8iWiI6WcC4EdkansUJz8")
 
         myODsayService.requestSearchPubTransPath(
             mSelectedStartPlace!!.longitude.toString(),
@@ -342,10 +365,10 @@ class EditAppointmentActivity : BaseActivity() {
             object : OnResultCallbackListener {
                 override fun onSuccess(p0: ODsayData?, p1: API?) {
                     val jsonObj = p0!!.json!!
-                    Log.d("길찾기 응답",jsonObj.toString())
+                    Log.d("길찾기 응답", jsonObj.toString())
 
                     val resultObj = jsonObj.getJSONObject("result")
-                    Log.d("result",resultObj.toString())
+                    Log.d("result", resultObj.toString())
 
                     val pathArr = resultObj.getJSONArray("path")    // 여러 추천 경로 중 첫번째 만 사용해본다.
 
@@ -356,7 +379,12 @@ class EditAppointmentActivity : BaseActivity() {
                     val stationLatLngList = ArrayList<LatLng>()
 
                     // 출발지 좌표를 정거장 목록에 먼저 추가
-                    stationLatLngList.add(LatLng(mSelectedStartPlace!!.latitude, mSelectedStartPlace!!.longitude))
+                    stationLatLngList.add(
+                        LatLng(
+                            mSelectedStartPlace!!.latitude,
+                            mSelectedStartPlace!!.longitude
+                        )
+                    )
 
                     // 예를 들어 불광 ~ 강남 : 도보 5분 / 지하철 30분 / 버스 30분 / 도보 5분
                     val subPathArr = firstPathObj.getJSONArray("subPath")
@@ -444,7 +472,7 @@ class EditAppointmentActivity : BaseActivity() {
 
     fun getMyStartPlaceListFromServer() {
 
-        apiList.getRequestMyPlaceList().enqueue(object: Callback<BasicResponse> {
+        apiList.getRequestMyPlaceList().enqueue(object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                 if (response.isSuccessful) {
