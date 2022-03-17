@@ -45,7 +45,14 @@ class ManagePlacesActivity : BaseActivity() {
         apiList.getRequestMyPlaceList().enqueue(object: Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
-                val br = response.body()!!
+                if (response.isSuccessful) {
+
+                    val br = response.body()!!
+                    mPlaceList.clear()
+                    mPlaceList.addAll(br.data.places)
+
+                }
+
 
             }
 
