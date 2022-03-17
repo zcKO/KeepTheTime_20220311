@@ -56,6 +56,19 @@ class EditAppointmentActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        // 스크롤보조용 텍스트뷰를 손이 닿으면 => 스크롤뷰의 이벤트 일시 정지 (지도만 움직이게)
+        binding.txtScrollHelp.setOnTouchListener { view, motionEvent ->
+
+            // 스크롤뷰의 이벤트 정지
+            // Disallow -> 허가 하지 않겠다.
+            binding.scrollView.requestDisallowInterceptTouchEvent(true)
+
+            // 텍스트뷰의 터치 이벤트만 실행 할 것인지 => 뒤에 가려져있는 지도도 터치를 허용해줘야한다.
+            return@setOnTouchListener false
+
+        }
+
+
         // 저장 버튼이 눌리면 할일
         binding.btnSave.setOnClickListener {
 
