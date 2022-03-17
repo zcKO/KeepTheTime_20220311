@@ -1,5 +1,6 @@
 package com.jc.keepthetime_20220311
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -34,6 +35,8 @@ class ManagePlacesActivity : BaseActivity() {
         btnAdd.setOnClickListener {
 
             // 장소 추가 화면 이동.
+            val myIntent = Intent(mContext, EditMyPlaceActivity::class.java)
+            startActivity(myIntent)
 
         }
 
