@@ -64,4 +64,7 @@ dependencies {
 
     // Kakao Login
     implementation "com.kakao.sdk:v2-user:2.8.6"
+    // facebook Login
+    implementation 'com.facebook.android:facebook-login:8.1.0'
+
 }
