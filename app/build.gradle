@@ -61,4 +61,7 @@ dependencies {
 
     // ODsayAndroidSDK 수동으로 추가
     implementation files('libs/ODsayAndroidSDK.aar')
+
+    // Kakao Login
+    implementation "com.kakao.sdk:v2-user:2.8.6"
 }
