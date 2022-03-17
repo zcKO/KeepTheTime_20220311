@@ -39,6 +39,7 @@ class SignInActivity : BaseActivity() {
                 // 카톡 앱이 설치되어있는 상황
                 UserApiClient.instance.loginWithKakaoTalk(mContext) {token, error ->
                     Log.d("카카오 로그인", "카톡 앱으로 로그인")
+                    getKakaoUserInfo()
                 }
 
             } else {
@@ -46,6 +47,9 @@ class SignInActivity : BaseActivity() {
                 // 카톡 앱이 없는 상황. 로그인 창 띄워주기
                 UserApiClient.instance.loginWithKakaoAccount(mContext) {token, error ->
                     Log.d("카카오 로그인", "카톡 웹으로 로그인")
+                    Log.d("카카오 로그인", "받아온 토큰 : ${token.toString()}")
+                    getKakaoUserInfo()
+
                 }
 
 
@@ -110,4 +114,18 @@ class SignInActivity : BaseActivity() {
     override fun setValues() {
 
     }
+
+    // 카카오 서버에서, 로그인 된 계정의 정보 불러오기
+    fun getKakaoUserInfo() {
+        UserApiClient.instance.me { user, error ->
+
+            user?.let {
+
+                Toast.makeText(mContext, "닉네임: ${it.kakaoAccount?.profile?.nickname}", Toast.LENGTH_SHORT).show()
+
+            }
+
+        }
+    }
+
 }
