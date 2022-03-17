@@ -25,11 +25,11 @@ class MyPlaceRecyclerAdapter(
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        val txtStartPlaceName = view.findViewById<TextView>(R.id.txtStartPlaceName)
 
         // 실제 데이터 반영 기능이 있는 함수
         fun bind(data: PlaceData) {
-
-
+            txtStartPlaceName.text = data.name
         }
 
     }
