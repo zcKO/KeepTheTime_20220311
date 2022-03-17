@@ -71,6 +71,6 @@ interface APIList {
     fun getRequestAppointmentList(): Call<BasicResponse>
 
     @GET("/user/place")
-    fun getRequestStartPlace(): Call<BasicResponse>
+    fun getRequestMyPlaceList(): Call<BasicResponse>
 
 }

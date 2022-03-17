@@ -1,10 +1,10 @@
 package com.jc.keepthetime_20220311
 
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.jc.keepthetime_20220311.databinding.ActivityManagePlacesBinding
 import com.jc.keepthetime_20220311.datas.BasicResponse
+import com.jc.keepthetime_20220311.datas.PlaceData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,6 +12,8 @@ import retrofit2.Response
 class ManagePlacesActivity : BaseActivity() {
 
     lateinit var binding: ActivityManagePlacesBinding
+
+    val mPlaceList = ArrayList<PlaceData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +30,22 @@ class ManagePlacesActivity : BaseActivity() {
 
     override fun setValues() {
 
-        apiList.getRequestStartPlace().enqueue(object: Callback<BasicResponse> {
+
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getMyPlacesFromSerer()
+    }
+
+    fun getMyPlacesFromSerer() {
+
+        apiList.getRequestMyPlaceList().enqueue(object: Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                 val br = response.body()!!
-
-                Log.d("시작", br.data.places[0].name)
-
 
             }
 
@@ -44,6 +55,6 @@ class ManagePlacesActivity : BaseActivity() {
 
         })
 
-
     }
+
 }

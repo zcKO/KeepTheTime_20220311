@@ -14,19 +14,20 @@ import com.jc.keepthetime_20220311.R
 import com.jc.keepthetime_20220311.api.APIList
 import com.jc.keepthetime_20220311.api.ServerApi
 import com.jc.keepthetime_20220311.datas.BasicResponse
+import com.jc.keepthetime_20220311.datas.PlaceData
 import com.jc.keepthetime_20220311.datas.UserData
 import retrofit2.*
 
 class MyPlaceRecyclerAdapter(
     val mContext: Context,
-    val mList: List<UserData>
+    val mList: List<PlaceData>
 ) : RecyclerView.Adapter<MyPlaceRecyclerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 
         // 실제 데이터 반영 기능이 있는 함수
-        fun bind(data: UserData) {
+        fun bind(data: PlaceData) {
 
 
         }
