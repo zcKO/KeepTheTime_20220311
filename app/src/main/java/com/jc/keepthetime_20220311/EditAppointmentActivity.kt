@@ -104,12 +104,18 @@ class EditAppointmentActivity : BaseActivity() {
             Log.d("선택한 약속 장소 - 위도", "위도 : ${mSelectedLatLng!!.latitude}")
             Log.d("선택한 약속 장소 - 경도", "경도 : ${mSelectedLatLng!!.longitude}")
 
-            // 약속 일시 - yyyy-MM-dd HH:mm 의 양식을 서버가 지정해서 요청
+            // binding.startPlaceSpinner.selectedItemPosition // 지금 선택되어 있는 아이템의 몇 번째 아이템인지
+            val selectStartPlace = mStartPlaceList[binding.startPlaceSpinner.selectedItemPosition]
+
+           // 약속 일시 - yyyy-MM-dd HH:mm 의 양식을 서버가 지정해서 요청
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
             apiList.postRequestAddAppointment(
                 inputTitle,
                 sdf.format(mSelectedAppointmentDateTime.time),
+                selectStartPlace.name,
+                selectStartPlace.latitude,
+                selectStartPlace.longitude,
                 inputPlaceName,
                 mSelectedLatLng!!.latitude,
                 mSelectedLatLng!!.longitude
