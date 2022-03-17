@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -45,6 +46,15 @@ class SignInActivity : BaseActivity() {
             // 1. 로그인 하고 다녀오면 어떤 행동을 할지? 인터페이스 설정.
             LoginManager.getInstance().registerCallback(mCallbackManager, object: FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
+
+                    // 페북 로그인 -> 페북 서버의 토큰 값을 받기.
+//                    Log.d("페북로그인성공", AccessToken.getCurrentAccessToken().toString())
+                    Log.d("페북로그인성공", result?.accessToken.toString())
+                    // 받은 토큰으로 > 내 정보도 받아오자.
+
+                    // 1. 정보를 받아오면 뭘 할건지? 인터페이스 설정
+
+                    // 2. 실제로 요청 호출
 
                 }
 
