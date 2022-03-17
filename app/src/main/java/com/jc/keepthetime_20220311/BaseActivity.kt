@@ -2,12 +2,13 @@ package com.jc.keepthetime_20220311
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.jc.keepthetime_20220311.api.APIList
 import com.jc.keepthetime_20220311.api.ServerApi
-import retrofit2.create
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -15,6 +16,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     // 모든 화면에서, apiList 변수가 있다면 => apiList."서버기능()" 형태로 간단히 코딩이 가능하다.
     lateinit var apiList: APIList
+
+    // 액션바의 UI 요소들을 멤버 변수로 => 상속 받은 화면들이 각자 컨트롤 가능.
+    lateinit var txtTitle: TextView
+    lateinit var btnAdd: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
         val toolbar = defaultActionBar.customView.parent as Toolbar
         toolbar.setContentInsetsAbsolute(0, 0)
+
+        // UI 요소들 실제 값 대입
+        txtTitle = defaultActionBar.customView.findViewById(R.id.txtTitle)
+        btnAdd = defaultActionBar.customView.findViewById(R.id.btnAdd)
 
     }
 

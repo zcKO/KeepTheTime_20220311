@@ -1,6 +1,7 @@
 package com.jc.keepthetime_20220311
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jc.keepthetime_20220311.adapters.MyPlaceRecyclerAdapter
@@ -30,9 +31,18 @@ class ManagePlacesActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        btnAdd.setOnClickListener {
+
+            // 장소 추가 화면 이동.
+
+        }
+
     }
 
     override fun setValues() {
+
+        txtTitle.text = "내 출발 장소 관리"
+        btnAdd.visibility = View.VISIBLE    // 숨겨져있던 추가 버튼 보이게 설정.
 
         mPlaceAdapter = MyPlaceRecyclerAdapter(mContext, mPlaceList)
         binding.myPlacesRecyclerView.adapter = mPlaceAdapter
